@@ -1,0 +1,3 @@
+{"doc_id": "doc1", "text": "Payment retry bug was fixed by engineer Rahul in PR 4821.", "source": "github", "product": "payment"}
+{"doc_id": "doc2", "text": "ABC Corp reported payment retry failures during the April release.", "source": "slack", "product": "payment"}
+{"doc_id": "doc3", "text": "Meeting notes say Rahul was assigned to fix the payment retry issue.", "source": "meeting", "product": "payment"}
