@@ -1,0 +1,7 @@
+{"doc_id": "doc1", "text": "Payment retry bug was fixed by engineer Rahul in PR 4821.", "source": "github", "product": "payment"}
+{"doc_id": "doc2", "text": "ABC Corp reported payment retry failures during the April release.", "source": "slack", "product": "payment"}
+{"doc_id": "doc3", "text": "Meeting notes say Rahul was assigned to fix the payment retry issue.", "source": "meeting", "product": "payment"}
+{"doc_id": "doc4", "text": "Marketing team discussed website redesign.", "source": "slack", "product": "website"}
+{"doc_id": "doc5", "text": "ABC Corp asked about pricing plan upgrade.", "source": "email", "product": "pricing"}
+{"doc_id": "doc6", "text": "Payment dashboard UI was updated by Anjali.", "source": "github", "product": "payment"}
+{"doc_id": "doc7", "text": "April release meeting discussed customer onboarding.", "source": "meeting", "product": "onboarding"}
