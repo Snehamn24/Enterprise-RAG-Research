@@ -66,5 +66,9 @@ Thumbs.db
 *.tmp
 
 # =========================
-# Generated HERB unified dataset
+# Generated HERB dataset
 herb/data/unified_data.jsonl
+herb/data/chunks.jsonl
+herb/data/embeddings/
+
+#==========================

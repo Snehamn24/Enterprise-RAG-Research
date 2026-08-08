@@ -8,7 +8,7 @@ import os
 
 # loader.py is located at:
 # C:\Enterprise-RAG\herb\loader.py
-#
+
 # HERB products are located at:
 # C:\Enterprise-RAG\herb\data\HERB\products
 
@@ -30,6 +30,7 @@ def load_json(path):
     """
     Load a JSON file and return its contents.
     """
+
     with open(path, "r", encoding="utf-8") as file:
         return json.load(file)
 
@@ -141,15 +142,17 @@ def process_product(product_file):
     print("Type:", type(team))
 
     if isinstance(team, dict):
+
         print("Team keys:", list(team.keys())[:10])
 
         # Team is structured metadata.
-        # We DO NOT add it directly to the retrieval corpus.
+        # We do NOT add it directly to the retrieval corpus.
         #
-        # It will later be used for metadata-aware retrieval
+        # It can later be used for metadata-aware retrieval
         # and employee/entity enrichment.
 
     elif isinstance(team, list):
+
         print("Team records:", len(team))
 
         if team:
@@ -233,8 +236,6 @@ def process_product(product_file):
 
         doc_id = item.get("id")
 
-        # Some HERB documents use "id", while some may
-        # expose another identifier.
         if not doc_id:
             doc_id = item.get(
                 "doc_id",
@@ -249,7 +250,6 @@ def process_product(product_file):
 
         metadata = {}
 
-        # Preserve useful document metadata
         for key in [
             "title",
             "document_type",
@@ -257,6 +257,7 @@ def process_product(product_file):
             "author",
             "authors"
         ]:
+
             if key in item:
                 metadata[key] = item[key]
 
@@ -344,6 +345,7 @@ def process_product(product_file):
             "timestamp",
             "channel"
         ]:
+
             if key in item:
                 metadata[key] = item[key]
 
@@ -384,8 +386,6 @@ def process_product(product_file):
             ""
         )
 
-        # We combine description + URL because the
-        # description contains useful semantic information.
         text = f"{description}\nURL: {link}"
 
         metadata = {
@@ -503,7 +503,7 @@ def main():
 
     product_files = load_products()
 
-    # These will eventually contain data from ALL 30 products.
+    # These contain data from ALL products
     all_unified_records = []
     all_answerable_questions = []
     all_unanswerable_questions = []
@@ -520,6 +520,10 @@ def main():
             answerable_questions,
             unanswerable_questions
         ) = process_product(product_file)
+
+        # IMPORTANT:
+        # Add the current product's records
+        # to the global collection.
 
         all_unified_records.extend(
             unified_records
@@ -558,6 +562,11 @@ def main():
         len(all_unanswerable_questions)
     )
 
+
+    # ========================================================
+    # SOURCE COUNTS
+    # ========================================================
+
     print("\nSources in unified corpus:")
 
     source_counts = {}
@@ -578,7 +587,7 @@ def main():
 
 
     # ========================================================
-    # SHOW SAMPLE RECORDS
+    # SHOW SAMPLE RECORD
     # ========================================================
 
     print("\n")
@@ -596,43 +605,59 @@ def main():
             )
         )
 
-    # ============================================================
+
+    # ========================================================
     # SAVE FINAL UNIFIED DATASET
-    # ============================================================
+    # ========================================================
 
     OUTPUT_FILE = os.path.join(
-    os.path.dirname(__file__),
-    "data",
-    "unified_data.jsonl"
+        BASE_DIR,
+        "data",
+        "unified_data.jsonl"
     )
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-        for record in unified_records:
-            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+    # IMPORTANT:
+    #
+    # "w" means WRITE / OVERWRITE.
+    #
+    # It does NOT append.
+    #
+    # Therefore every time loader.py runs:
+    #
+    # old unified_data.jsonl
+    #          ↓
+    #       replaced
+    #          ↓
+    # new 38,600 records
+    #
+
+    with open(
+        OUTPUT_FILE,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        for record in all_unified_records:
+
+            f.write(
+                json.dumps(
+                    record,
+                    ensure_ascii=False
+                ) + "\n"
+            )
+
 
     print("\n" + "=" * 60)
     print("UNIFIED DATASET SAVED")
     print("=" * 60)
-    print(f"File: {OUTPUT_FILE}")
-    print(f"Records saved: {len(unified_records)}")
 
+    print(
+        f"File: {OUTPUT_FILE}"
+    )
 
-    # ========================================================
-    # IMPORTANT:
-    #
-    # We are NOT saving unified_data.jsonl yet.
-    #
-    # First we verify that all HERB fields are being loaded
-    # correctly across all 30 products.
-    #
-    # After verification, we will create:
-    #
-    # herb/
-    # ├── unified_data.jsonl
-    # ├── answerable_questions.jsonl
-    # └── unanswerable_questions.jsonl
-    #
-    # ========================================================
+    print(
+        f"Records saved: {len(all_unified_records)}"
+    )
 
 
 # ============================================================
