@@ -70,5 +70,7 @@ Thumbs.db
 herb/data/unified_data.jsonl
 herb/data/chunks.jsonl
 herb/data/embeddings.jsonl
+herb/data/herb.index
+herb/index_metadata.jsonl
 
 #==========================
