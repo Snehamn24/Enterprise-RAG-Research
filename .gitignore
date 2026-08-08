@@ -1,3 +1,70 @@
-venv/
+# =========================
+# Python
+# =========================
+
 __pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# =========================
+# Environment / Secrets
+# =========================
+
 .env
+.env.*
+!.env.example
+
+# API keys / tokens
+*.pem
+*.key
+
+# =========================
+# HERB Dataset
+# =========================
+
+herb/data/
+herb/.cache/
+
+# =========================
+# Hugging Face / Model Cache
+# =========================
+
+.cache/
+huggingface/
+hf_cache/
+
+# =========================
+# Jupyter
+# =========================
+
+.ipynb_checkpoints/
+
+# =========================
+# IDE
+# =========================
+
+.vscode/
+.idea/
+
+# =========================
+# OS
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+# Generated files
+# =========================
+
+*.log
+*.tmp
+
+# =========================
+# Generated HERB unified dataset
+herb/data/unified_data.jsonl
