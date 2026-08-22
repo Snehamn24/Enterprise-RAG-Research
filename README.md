@@ -39,20 +39,6 @@ Instead of assuming that one retrieval method works equally well for every query
 
 ---
 
-# Research Motivation
-
-During initial experiments, pure dense retrieval often returned documents that were semantically related to a query but did not contain the evidence required to answer it.
-
-For example, an employee-role query could retrieve general Slack messages mentioning employees in the same product instead of the documents associated with the requested role.
-
-Similarly, questions about a **previous release** could retrieve more recent conversations because they contain semantically similar words such as the product name or customer references.
-
-These observations motivate the need for a retrieval pipeline that considers more than vector similarity alone.
-
-The project therefore studies whether combining lexical, semantic, metadata, temporal, and cross-document signals can improve retrieval quality.
-
----
-
 # Project Architecture
 
 ```text
